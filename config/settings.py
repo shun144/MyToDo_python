@@ -2,9 +2,9 @@ from pathlib import Path
 import dj_database_url
 import os
 
-# import environ
-# env = environ.Env()
-# env.read_env('.env')
+import environ
+env = environ.Env()
+env.read_env('.env')
 
 
 DEBUG = False
@@ -143,6 +143,8 @@ except ImportError:
 
 
 if not DEBUG:
-    SECRET_KEY = os.environ['SECRET_KEY']
+    # SECRET_KEY = os.environ['SECRET_KEY']
+    SECRET_KEY = env('SECRET_KEY')
+
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
