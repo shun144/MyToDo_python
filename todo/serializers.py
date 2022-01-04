@@ -14,7 +14,7 @@ class StatusSerializer(serializers.ModelSerializer):
 class TodoSerializer(serializers.ModelSerializer):
     class Meta:
       model = Todo
-      fields = ['id', 'disp_no', 'title','description','user_name', 'status']
+      fields = ['task_id', 'disp_no', 'title','description','user_name', 'status']
 
 
 

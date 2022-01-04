@@ -50,7 +50,7 @@
           <div class="mb-4 p-2  bg-white shadow text-xs rounded w-full task">
 
             <div class="flex justify-between">
-              <div class="font-bold mb-2">[[task.title]]</div>
+              <div class="font-bold mb-2">[[task.title]] </div>
               <div class="flex justify-end">
                 <i class="fas fa-edit mr-2" @click="openModal(category,task)"></i>
                 <i class="fas fa-trash-alt" @click="taskDelete(task)"></i>
@@ -91,7 +91,8 @@ const app = Vue.createApp({
       del_check:false,
 
       form:{
-        id:'',
+        // id:'',
+        task_id:'',
         disp_no:'',
         title:'',
         description:'',
@@ -131,16 +132,14 @@ const app = Vue.createApp({
         }
       });
       return todos;
-
     },
   },
+
   methods:{
     taskDelete(task){
 
-
-      this.tasks = this.tasks.filter(a => a.id!==task.id);
-
-      axios.delete('/api/todo/' + task.id + '/').catch((err) => {console.log(err); });
+      this.tasks = this.tasks.filter(a => a.task_id!==task.task_id);
+      axios.delete('/api/todo/' + task.task_id + '/').catch((err) => {console.log(err); });
     },
 
 
@@ -150,10 +149,10 @@ const app = Vue.createApp({
       this.edit_modal = true;
     },
     taskUpdate() {
-      let task = this.tasks.find(task => task.id === this.form.id)
+      let task = this.tasks.find(task => task.task_id === this.form.task_id)
       Object.assign(task, this.form);
 
-      axios.patch('/api/todo/' + this.form.id + '/', {
+      axios.patch('/api/todo/' + this.form.task_id + '/', {
         title:this.form.title,
         description:this.form.description,
         user_name:this.form.user_name,
@@ -166,11 +165,21 @@ const app = Vue.createApp({
       axios.get('/api/status/').then(response => (this.todos = response.data));
       axios.get('/api/todo/').then(response => (this.tasks = response.data));
     },
-    dropTask(){
+    patchTask(task)
+    {
 
+      axios.patch('/api/todo/' + task.task_id + '/', {
+        disp_no: task.disp_no,
+        title: task.title,
+        description: task.description,
+        user_name: task.user_name,
+        status: task.status,
+      }).catch((err) => {console.log(err);});
+    },
+    patchAllTask()
+    {
       this.tasks.map((task) => {
-
-        axios.patch('/api/todo/' + task.id + '/', {
+        axios.patch('/api/todo/' + task.task_id + '/', {
           disp_no: task.disp_no,
           title: task.title,
           description: task.description,
@@ -179,17 +188,26 @@ const app = Vue.createApp({
         }).catch((err) => {console.log(err);});
       })
     },
-    dragTask(task){
-      this.task = task;
+    dropTask(){
+
+      this.patchAllTask();
+
     },
 
-    dragOverTask(overTask){
+    dragTask(task){
+      
+      this.task = task;
 
-      if (overTask.id !== this.task.id) {
+    },
+
+    dragOverTask(overTask){ 
+    
+
+      if (overTask.task_id !== this.task.task_id) {
         let deleteIndex;    // 削除用Index
         let addIndex;       // 追加用Index
-        this.tasks.map((task, index) => { if (task.id === this.task.id) deleteIndex = index  })
-        this.tasks.map((task, index) => { if (task.id === overTask.id) addIndex = index })
+        this.tasks.map((task, index) => { if (task.task_id === this.task.task_id) deleteIndex = index  })
+        this.tasks.map((task, index) => { if (task.task_id === overTask.task_id) addIndex = index })
 
         this.tasks.splice(deleteIndex, 1)
         this.task.status = overTask.status
@@ -198,30 +216,40 @@ const app = Vue.createApp({
         // disp_no 更新
         let cnt = 0;
         this.tasks.map((task) => { task.disp_no =  cnt++ })
+
       }
     },
 
-
     dragOverCategory(overCategory){
+
       if (this.task.status !== overCategory.id) {
         let tasks = this.tasks.filter(task => task.status === overCategory.id)
-        if (tasks.length === 0) this.task.status = overCategory.id;
+        if (tasks.length === 0) 
+        {
+          this.task.status = overCategory.id;
+          
+          this.patchTask(this.task);
+        }
       }   
     },
 
     taskAdd(task_name, task_description, task_username, category_id) {
 
       let max_disp_no = 0;
-      this.todos.map(todo => {
-        tasks = this.tasks.filter(task => task.status === category_id);
-        let disp_no = tasks.map(item => item.disp_no );
-        max_disp_no = Math.max.apply(null, disp_no) + 1;
-      })
+      let max_task_id = 0;
 
-      console.log(max_disp_no);
+      // tasks = this.tasks.filter(task => task.status === category_id);      
+      if (this.tasks.length !== 0)
+      {
+        let tmp_disp_no = this.tasks.map(item => item.disp_no );
+        max_disp_no = Math.max.apply(null, tmp_disp_no) + 1;
+
+        let tmp_task_id = this.tasks.map(item => item.task_id );
+        max_task_id = Math.max.apply(null, tmp_task_id) + 1;
+      }
 
       this.tasks.push({
-        id: Date.now(),
+        task_id: max_task_id,
         disp_no:  max_disp_no,
         title: task_name,
         description: task_description,
@@ -230,7 +258,7 @@ const app = Vue.createApp({
       })
 
       axios.post('/api/todo/', {
-        id: Date.now(),
+        task_id: max_task_id,
         disp_no: max_disp_no,
         title:task_name,
         description: task_description,

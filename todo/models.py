@@ -7,6 +7,8 @@ class Status(models.Model):
     return self.status
 
 class Todo(models.Model):
+  task_id = models.PositiveIntegerField('タスクID', blank=False)
+  
   disp_no = models.PositiveSmallIntegerField('表示順', blank=False)
   title = models.CharField('タイトル', max_length=50, blank=False)
   description = models.CharField('詳細', max_length=250, blank=True)
