@@ -178,8 +178,6 @@ const app = Vue.createApp({
           status: task.status,
         }).catch((err) => {console.log(err);});
       })
-
-
     },
     dragTask(task){
       this.task = task;
@@ -219,6 +217,8 @@ const app = Vue.createApp({
         let disp_no = tasks.map(item => item.disp_no );
         max_disp_no = Math.max.apply(null, disp_no) + 1;
       })
+
+      console.log(max_disp_no);
 
       this.tasks.push({
         id: Date.now(),
