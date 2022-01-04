@@ -15,26 +15,15 @@ from rest_framework.response import Response
 from .serializers import TodoSerializer
 
 
-# class TodoUpdateAPIView(APIView):
+from django.views.decorators.csrf import requires_csrf_token
+from django.http import HttpResponseServerError
 
-#     def patch(self, request, id, *args, **kwargs):
-
-#         # instanceの取得
-#         instance = get_object_or_404(Todo, id=id)
-
-#         # シリアライザの作成
-#         serializer = TodoSerializer(instance=instance, data=request.data, partial=True)
-
-#         # バリデーション
-#         serializer.is_valid(raise_exception=True)
-
-#         # DB更新
-#         serializer.save()
-
-#         return Response({'result':True})
-
-
-
+@requires_csrf_token
+def my_customized_server_error(request, template_name='500.html'):
+    import sys
+    from django.views import debug
+    error_html = debug.technical_500_response(request, *sys.exc_info()).content
+    return HttpResponseServerError(error_html)
 
 
 
