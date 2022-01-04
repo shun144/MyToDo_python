@@ -1,0 +1,80 @@
+@charset "UTF-8";
+body {
+  background-color: #f6f5f4;
+  overflow-x: hidden;
+}
+
+header {
+  display: block;
+  width: 100%;
+  height: 100px;
+  background-color: orange;
+}
+
+.contents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.main {
+  width: auto;
+  height: 300px;
+  background-color: #b3d874;
+}
+
+.sidebar {
+  background-color: #ff838b;
+  position: absolute;
+  top: 30px;
+  padding: 10px 10px 30px 10px;
+  -webkit-box-shadow: -2px 0 3px 2px gray;
+          box-shadow: -2px 0 3px 2px gray;
+  width: 20%;
+  height: 50vh;
+}
+
+.sidebar .closed {
+  left: 100%;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.sidebar .opened {
+  right: 0%;
+}
+
+.close, .open {
+  position: absolute;
+  top: 100px;
+  right: 100%;
+  width: 30px;
+  height: 160px;
+  font-size: 20px;
+  background-color: white;
+  border: none;
+  -webkit-box-shadow: -2px 0 2px 2px gray;
+          box-shadow: -2px 0 2px 2px gray;
+  outline: none;
+}
+
+.button_text {
+  -webkit-writing-mode: vertical-lr;
+      -ms-writing-mode: tb-lr;
+          writing-mode: vertical-lr;
+  /* 文字縦書きに */
+  text-orientation: upright;
+  /* 縦書きの文字を正立*/
+}
+
+footer {
+  display: block;
+  width: 100%;
+  height: 100px;
+  background-color: blue;
+}
+/*# sourceMappingURL=base.css.map */
