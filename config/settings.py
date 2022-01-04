@@ -1,10 +1,9 @@
 from pathlib import Path
 import dj_database_url
 import os
-
 import environ
-env = environ.Env()
-env.read_env('.env')
+
+
 
 
 DEBUG = False
@@ -122,8 +121,6 @@ STATICFILES_DIRS = (
 
 
 
-
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'     #ユーザーモデルとして CustomUser クラスを利用する
@@ -141,10 +138,12 @@ try:
 except ImportError:
     pass
 
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR,'.env'))
 
 if not DEBUG:
     # SECRET_KEY = os.environ['SECRET_KEY']
     SECRET_KEY = env('SECRET_KEY')
 
-    import django_heroku #追加
-    django_heroku.settings(locals()) #追加
+    import django_heroku
+    django_heroku.settings(locals())
