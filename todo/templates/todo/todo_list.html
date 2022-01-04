@@ -87,8 +87,8 @@ const app = Vue.createApp({
       edit_modal:false,
       category_id:'',
       disp_no:0,
-      del_check:false,
 
+      del_check:false,
 
       form:{
         id:'',
@@ -137,7 +137,6 @@ const app = Vue.createApp({
   methods:{
     taskDelete(task){
 
-      // this.del_check = true;
 
       this.tasks = this.tasks.filter(a => a.id!==task.id);
 
@@ -266,12 +265,16 @@ app.component('task-add',{
     closeInput() {
       this.show = false;
       this.task_name = '';
+      this.task_description = '';
+      this.task_username = '';
     },
     addTask() {
       if (this.task_name != '') {
         this.$emit('TaskAdded', this.task_name, this.task_description, this.task_username, this.category_id)
         this.show = false;
         this.task_name = '';
+        this.task_description = '';
+        this.task_username = '';
       }
     },
   },
