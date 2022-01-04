@@ -138,11 +138,10 @@ try:
 except ImportError:
     pass
 
-env = environ.Env()
-env.read_env(os.path.join(BASE_DIR,'.env'))
 
 if not DEBUG:
-    # SECRET_KEY = os.environ['SECRET_KEY']
+    env = environ.Env()
+    env.read_env(os.path.join(BASE_DIR, '.env'))
     SECRET_KEY = env('SECRET_KEY')
 
     import django_heroku
