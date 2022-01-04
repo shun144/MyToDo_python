@@ -147,10 +147,3 @@ if not DEBUG:
     SECRET_KEY = env('SECRET_KEY')
 
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-    
-    
-
-
-# DEBUG = False

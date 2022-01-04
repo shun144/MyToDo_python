@@ -13,8 +13,8 @@
       <div class="overlay" v-show="edit_modal" @click="edit_modal=false">
       </div>
       <div class="content" v-show="edit_modal">
-        <div class="text font-bold text-lg mb-1">[[ form.title ]]</div>
-        <div class="text-xs mb-4">in カテゴリー[[ form.status ]]</div>
+        <div class="text font-bold text-lg mb-1">[[ this.bfr_task_title ]]</div>
+        <div class="text-xs mb-4">in [[ this.category.status ]]</div>
 
         <div class="input_grid mb-2">
           <label class="text-xs">タスク名</label>
@@ -85,6 +85,8 @@ const app = Vue.createApp({
       todos:[],
       tasks:[],
       edit_modal:false,
+      bfr_task_title:'',
+      category:'',
       category_id:'',
       disp_no:0,
 
@@ -145,6 +147,8 @@ const app = Vue.createApp({
 
     openModal(category, task) {
       this.category = category;
+      this.bfr_task_title = task.title
+      
       Object.assign(this.form, task);
       this.edit_modal = true;
     },
@@ -228,7 +232,7 @@ const app = Vue.createApp({
         {
           this.task.status = overCategory.id;
           
-          this.patchTask(this.task);
+          this.patchTask(this.task);  
         }
       }   
     },
