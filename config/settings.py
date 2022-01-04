@@ -120,7 +120,6 @@ STATICFILES_DIRS = (
 )
 
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'     #ユーザーモデルとして CustomUser クラスを利用する
@@ -152,4 +151,4 @@ if not DEBUG:
     django_heroku.settings(locals())
 
 
-DEBUG = True
+# DEBUG = True
