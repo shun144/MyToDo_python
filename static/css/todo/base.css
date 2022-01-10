@@ -4,13 +4,6 @@ body {
   overflow-x: hidden;
 }
 
-header {
-  display: block;
-  width: 100%;
-  height: 100px;
-  background-color: orange;
-}
-
 .contents {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -23,8 +16,112 @@ header {
 
 .main {
   width: auto;
+  height: auto;
+}
+
+.item {
+  padding: 10px;
+  width: 80px;
+  height: 20px;
+  border: 1px solid #2e6da4;
+  background-color: #7da8c3;
+  color: #FFFFFF;
+}
+
+.item:hover {
+  cursor: pointer;
+}
+
+.item p {
+  display: inline-block;
+}
+
+.drop_area {
+  margin-top: 50px;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #3a945b;
+  background: #f0fff0;
+}
+
+.drop_area p {
+  margin: 10px;
+}
+
+.ui-selected {
+  background-color: #1cc7ff;
+}
+
+.ui-selectable-helper {
+  position: absolute;
+  z-index: 100;
+  border: 1px dotted black;
+}
+
+.base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 50px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: gray;
+  opacity: 0.5;
+}
+
+.content {
+  background-color: white;
+  position: relative;
+  border-radius: 10px;
+  padding: 10px 20px;
+  width: 400px;
   height: 300px;
-  background-color: #b3d874;
+}
+
+.task {
+  cursor: pointer;
+}
+
+.input_grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50px 1fr;
+      grid-template-columns: 50px 1fr;
+  -ms-grid-rows: 35px 35px 60px;
+      grid-template-rows: 35px 35px 60px;
+  grid-gap: 15px 0px;
+}
+
+.input_grid label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header {
+  display: block;
+  width: 100%;
+  height: 100px;
+  background-color: orange;
 }
 
 .sidebar {

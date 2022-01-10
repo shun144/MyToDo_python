@@ -9,29 +9,25 @@ DEBUG = False
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ALLOWED_HOSTS = ['*']
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 INSTALLED_APPS = [
 
     'todo.apps.TodoConfig',
-    'accounts.apps.AccountsConfig',
-
+    'regi.apps.RegiConfig',
+    
     'widget_tweaks',    #DOM 属性等の操作
     # 'drf_writable_nested',
 
 
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+
     'rest_framework',
 ]
 
@@ -52,11 +48,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [   
-                    os.path.join(BASE_DIR, "accounts", "templates"),
-                    os.path.join(BASE_DIR, "todo", "templates"),
-                    # os.path.join(BASE_DIR,"templates"), 
-                    # os.path.join(BASE_DIR,"templates","allauth"),
+        'DIRS': [
+                    os.path.join(BASE_DIR, "todo/templates"),
+                    os.path.join(BASE_DIR, "regi/templates"),                    
                 ],       
         'APP_DIRS': True,
         'OPTIONS': {
@@ -78,8 +72,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -107,24 +99,23 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# collectstaticコマンドの配置先
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static', 'css', 'todo'),
-    # os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "regi/static"),
+    os.path.join(BASE_DIR, "todo/static"),
 )
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'accounts.CustomUser'     #ユーザーモデルとして CustomUser クラスを利用する
+AUTH_USER_MODEL = 'regi.MyUser'
 
-SITE_ID = 1
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', #デフォルトの認証基盤
-    'allauth.account.auth_backends.AuthenticationBackend' # メールアドレスとパスワードの両方を用いて認証するために必要
-)
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/top'
+LOGOUT_REDIRECT_URL = 'login'
 
 
 try:
@@ -133,11 +124,9 @@ except ImportError:
     pass
 
 
-
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     django_heroku.settings(locals())
-    
 
     db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
     DATABASES['default'].update(db_from_env)
@@ -147,3 +136,5 @@ if not DEBUG:
     SECRET_KEY = env('SECRET_KEY')
 
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']

@@ -5,12 +5,7 @@ body {
   // display:flex;
 }
 
-header {
-  display: block;
-  width: 100%;
-  height: 100px;
-  background-color: orange;
-}
+
 
 .contents {
   display: flex;
@@ -19,10 +14,104 @@ header {
 
 .main {
   width: auto;
-  height: 300px;
-  background-color:#b3d874;
+  height: auto;
+  // background-color:#b3d874;
 }
 
+
+.item {
+  padding: 10px;
+  width: 80px;
+  height: 20px;
+  border: 1px solid #2e6da4;
+  background-color: #7da8c3;
+  color: #FFFFFF;
+}
+.item:hover {
+  cursor: pointer;
+}
+
+.item p {
+  display: inline-block;
+}
+.drop_area {
+  margin-top: 50px;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #3a945b;
+  background: #f0fff0;
+}
+.drop_area p {
+  margin: 10px;
+}
+.ui-selected {
+ background-color: #1cc7ff;
+}
+.ui-selectable-helper{
+  position: absolute;
+  z-index: 100;
+  border:1px dotted black;
+}
+
+
+
+.base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: gray;
+  opacity: 0.5;
+}
+
+.content {
+  background-color: white;
+  position: relative;
+  border-radius: 10px;
+  padding: 10px 20px;
+  width: 400px;
+  height: 300px;
+}
+
+.task {
+  cursor: pointer;
+}
+
+.input_grid {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  grid-template-rows: 35px 35px 60px;
+  grid-gap:15px 0px;
+
+  label{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  // input {
+  //   padding: 0px;
+  // }
+}
+
+
+header {
+  display: block;
+  width: 100%;
+  height: 100px;
+  background-color: orange;
+}
 
 
 .sidebar {

@@ -1,7 +1,10 @@
 @charset "UTF-8";
 body {
-  background-color: #f6f5f4;
   overflow-x: hidden;
+}
+
+.category {
+  background-color: #EDF2F7;
 }
 
 .contents {

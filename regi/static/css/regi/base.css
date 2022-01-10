@@ -1,0 +1,7 @@
+@charset "UTF-8";
+/* 959px以下に適用されるCSS（タブレット用） */
+/* 480px以下に適用されるCSS（スマホ用） */
+body {
+  background: #EDF2F7;
+}
+/*# sourceMappingURL=base.css.map */

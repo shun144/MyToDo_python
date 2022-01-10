@@ -1,11 +1,13 @@
 body {
   // font-family:'Noto Sans JP',sans-serif;
-  background-color:#f6f5f4;
+  // background-color: #EDF2F7;
   overflow-x: hidden;
   // display:flex;
 }
 
-
+.category{
+  background-color: #EDF2F7;
+}
 
 .contents {
   display: flex;
@@ -15,7 +17,6 @@ body {
 .main {
   width: auto;
   height: auto;
-  // background-color:#b3d874;
 }
 
 
@@ -41,6 +42,7 @@ body {
   border: 1px solid #3a945b;
   background: #f0fff0;
 }
+
 .drop_area p {
   margin: 10px;
 }
@@ -52,7 +54,6 @@ body {
   z-index: 100;
   border:1px dotted black;
 }
-
 
 
 .base {
@@ -99,10 +100,6 @@ body {
     justify-content: flex-start;
     align-items: center;
   }
-
-  // input {
-  //   padding: 0px;
-  // }
 }
 
 

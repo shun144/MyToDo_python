@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>トップ画面</title>
+</head>
+
+<body>
+    <h1>トップ画面テスト</h1>
+
+    {% if user.is_authenticated %}
+    <p><a href="{% url 'logout' %}">ログアウト</a></p>
+    {% else %}
+    <p><a href="{% url 'login' %}">ログイン</a></p>
+    <p><a href="{% url 'create_account' %}">アカウント作成</a></p>
+    
+    {% endif %}
+
+</body>
+
+</html>
