@@ -13,7 +13,7 @@ from django.shortcuts import render
 class TodoListView(generic.ListView):
     model = Todo
     paginate_by = 5
-    template_name = 'todo.html'
+    template_name = 'todo/todo.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -14,14 +14,15 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
 
+    'account.apps.AccountConfig',
     'todo.apps.TodoConfig',
-    'regi.apps.RegiConfig',
+    
     
     'widget_tweaks',    #DOM 属性等の操作
     # 'drf_writable_nested',
 
 
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -49,8 +50,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
+                    os.path.join(BASE_DIR, "account/templates"),     
                     os.path.join(BASE_DIR, "todo/templates"),
-                    os.path.join(BASE_DIR, "regi/templates"),                    
+                                   
                 ],       
         'APP_DIRS': True,
         'OPTIONS': {
@@ -104,14 +106,14 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "regi/static"),
+    os.path.join(BASE_DIR, "account/static"),
     os.path.join(BASE_DIR, "todo/static"),
 )
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'regi.MyUser'
+AUTH_USER_MODEL = 'account.CustomUser'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/top'
