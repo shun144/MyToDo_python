@@ -1,0 +1,13 @@
+@charset "UTF-8";
+/* 959px以下に適用されるCSS（タブレット用） */
+/* 480px以下に適用されるCSS（スマホ用） */
+.signup {
+  width: 25%;
+  height: auto;
+  margin: 10% auto 0;
+}
+
+.signup .form-group {
+  margin-bottom: 20px;
+}
+/*# sourceMappingURL=signup.css.map */

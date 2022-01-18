@@ -10,7 +10,7 @@ from django.shortcuts import render
 
 
 # ToDoの一覧表示機能
-class TodoListView(generic.ListView):
+class TodoListView(LoginRequiredMixin, generic.ListView):
     model = Todo
     paginate_by = 5
     template_name = 'todo/todo.html'
