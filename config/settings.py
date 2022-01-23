@@ -1,27 +1,19 @@
 from pathlib import Path
-import dj_database_url
+
 import os
 import environ
 import django_heroku
 
-
-DEBUG = False
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = ['*']
-
+DEBUG = False
 
 INSTALLED_APPS = [
 
     'account.apps.AccountConfig',
     'todo.apps.TodoConfig',
-    
-    
     'widget_tweaks',    #DOM 属性等の操作
     # 'drf_writable_nested',
-
-
     # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,7 +21,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'webpack-loader',
-
     'rest_framework',
 ]
 
@@ -38,11 +29,10 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',                # CSRF検証機能
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',   
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -69,20 +59,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application' 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
-# PASSWORD_HASHERS = [
-#     "django.contrib.auth.hashers.Argon2PasswordHasher",
-#     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
-#     "django.contrib.auth.hashers.BCryptPasswordHasher",
-#     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
-#     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
-# ]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -101,11 +78,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'ja'
-
 TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
-
 USE_TZ = True
 
 STATIC_URL = 'static/'
@@ -123,29 +98,47 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.CustomUser'
-
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/top'
 LOGOUT_REDIRECT_URL = '/login'
 
 
+# ローカル設定ファイル読込
 try:
     from .local_settings import *
 except ImportError:
     pass
 
 
+# 本番環境
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    django_heroku.settings(locals())
 
-    db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-    DATABASES['default'].update(db_from_env)
+    import dj_database_url
+
+    # redirect http access to https
+    SECURE_SSL_REDIRECT = True
+
+
 
     env = environ.Env()
     env.read_env(os.path.join(BASE_DIR, '.env'))
+
+    DATABASES = {
+        'default':env.db(),
+    }
+
     SECRET_KEY = env('SECRET_KEY')
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
+    # Activate Django-Heroku.
+    # django-heroku​ : Automatically configure your Django application to work on Heroku.
+    django_heroku.settings(locals())
+
+
+    # Configure your Django 
+    db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    DATABASES['default'].update(db_from_env)
 
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-    ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+    
