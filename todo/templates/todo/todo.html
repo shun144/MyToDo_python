@@ -23,6 +23,8 @@
   
           <label class="text-xs">詳細</label>
           <textarea type="text" class="border rounded-lg px-2 py-2 text-xs" v-model="form.description"></textarea>
+
+          {% csrf_token %}
         </div>
 
         <div class="flex justify-end">
@@ -154,6 +156,9 @@ const app = Vue.createApp({
       let task = this.tasks.find(task => task.task_id === this.form.task_id)
       Object.assign(task, this.form);
 
+      axios.defaults.xsrfCookieName = 'csrftoken'   // CSRFトークンを投げれるように追加
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN" // CSRFトークンを投げれるように追加
+
       axios.patch('/api/todo/' + this.form.task_id + '/', {
         title:this.form.title,
         description:this.form.description,
@@ -169,7 +174,6 @@ const app = Vue.createApp({
     },
     patchTask(task)
     {
-
       axios.patch('/api/todo/' + task.task_id + '/', {
         disp_no: task.disp_no,
         title: task.title,
