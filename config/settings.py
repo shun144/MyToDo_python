@@ -99,8 +99,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.CustomUser'
 LOGIN_URL = '/login'
+# LOGIN_REDIRECT_URL = '/top'
 LOGIN_REDIRECT_URL = '/top'
-LOGOUT_REDIRECT_URL = '/login'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # ローカル設定ファイル読込
