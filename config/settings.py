@@ -99,7 +99,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.CustomUser'
 LOGIN_URL = '/login'
-# LOGIN_REDIRECT_URL = '/top'
 LOGIN_REDIRECT_URL = '/top'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -111,15 +110,26 @@ except ImportError:
     pass
 
 
+# DEBUG = True
+
+# env = environ.Env()
+# env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# DATABASES = {
+#     'default':env.db(),
+# }
+
+# SECRET_KEY = env.get_value('SECRET_KEY',str)
+# ALLOWED_HOSTS = ['*']
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# SECURE_SSL_REDIRECT = False
+
+
+
 # 本番環境
 if not DEBUG:
-
-    import dj_database_url
-
-    # redirect http access to https
-    SECURE_SSL_REDIRECT = True
-
-
 
     env = environ.Env()
     env.read_env(os.path.join(BASE_DIR, '.env'))
@@ -131,15 +141,22 @@ if not DEBUG:
     SECRET_KEY = env('SECRET_KEY')
     ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
-    # Activate Django-Heroku.
-    # django-heroku​ : Automatically configure your Django application to work on Heroku.
-    django_heroku.settings(locals())
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
+
+    # import dj_database_url
+
+    # # Activate Django-Heroku.
+    # # django-heroku​ : Automatically configure your Django application to work on Heroku.
+    # django_heroku.settings(locals())
+
+    # # Configure your Django 
+    # db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    # DATABASES['default'].update(db_from_env)
 
 
-    # Configure your Django 
-    db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-    DATABASES['default'].update(db_from_env)
 
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # # redirect http access to https
+    # SECURE_SSL_REDIRECT = True
+
 
     
