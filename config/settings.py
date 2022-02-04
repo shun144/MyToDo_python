@@ -8,6 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = False
 
+
 INSTALLED_APPS = [
 
     'account.apps.AccountConfig',
@@ -109,25 +110,6 @@ try:
 except ImportError:
     pass
 
-
-# DEBUG = True
-
-# env = environ.Env()
-# env.read_env(os.path.join(BASE_DIR, '.env'))
-
-# DATABASES = {
-#     'default':env.db(),
-# }
-
-# SECRET_KEY = env.get_value('SECRET_KEY',str)
-# ALLOWED_HOSTS = ['*']
-
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# SECURE_SSL_REDIRECT = False
-
-
-
 # 本番環境
 if not DEBUG:
 
@@ -138,25 +120,11 @@ if not DEBUG:
         'default':env.db(),
     }
 
-    SECRET_KEY = env('SECRET_KEY')
+    SECRET_KEY = env.get_value('SECRET_KEY',str)
     ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 
-    # import dj_database_url
-
-    # # Activate Django-Heroku.
-    # # django-heroku​ : Automatically configure your Django application to work on Heroku.
-    # django_heroku.settings(locals())
-
-    # # Configure your Django 
-    # db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-    # DATABASES['default'].update(db_from_env)
-
-
-
-    # # redirect http access to https
-    # SECURE_SSL_REDIRECT = True
 
 
     

@@ -1,0 +1,22 @@
+/* 959px以下に適用されるCSS（タブレット用） */
+@media screen and (max-width: 959px) {
+	
+}
+
+/* 480px以下に適用されるCSS（スマホ用） */
+@media screen and (max-width: 480px) {
+	
+}
+
+.signup {
+  
+  width: 25%;
+  height: auto;
+  margin: 10% auto 0;
+
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+}
+

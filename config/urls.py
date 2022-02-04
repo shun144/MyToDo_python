@@ -4,6 +4,7 @@ from django.urls import include, path
 from .routers import router
 
 
+
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', include('account.urls')),
@@ -12,3 +13,4 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
 ]
+
