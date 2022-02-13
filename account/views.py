@@ -30,6 +30,7 @@ class SignUp(CreateView):
     form_class = SignUpForm
     template_name = 'account/signup.html'
 
+
     def post(self, request, *args, **kwargs):
 
         form = self.form_class(data=request.POST)

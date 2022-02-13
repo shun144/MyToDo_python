@@ -8,6 +8,7 @@
 {% block content %}
 
 <form action="" method="POST">
+    {% csrf_token %}
 
     <div class="signup">
         <div class="px-4 pt-4 pb-3 bg-white rounded">
@@ -32,7 +33,7 @@
 
             <button type="submit" class="px-4 py-2 bg-black hover:bg-gray-700 text-white mr-2 font-bold text-xs" >Sign Up</button>
             <input type="hidden" name="next" value="{{ next }}" />
-            {% csrf_token %}
+            
         </div>
 
     </div>
