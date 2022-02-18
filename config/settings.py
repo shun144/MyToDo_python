@@ -23,14 +23,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'webpack-loader',
     'rest_framework',
-    'corsheaders',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',                # CSRF検証機能
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -38,10 +38,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',   
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8000',
-    'http://54.146.204.103'
-]
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:8000',
+#     'http://54.146.204.103'
+# ]
 
 ROOT_URLCONF = 'config.urls'
 

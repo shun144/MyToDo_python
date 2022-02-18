@@ -10,7 +10,7 @@ from django.views.generic import CreateView
 
 from django.contrib.auth import get_user_model
 
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 class Login(LoginView):
@@ -22,7 +22,6 @@ class Login(LoginView):
 class Logout(LoginRequiredMixin, LogoutView):
     """ログアウトページ"""
     template_name = 'account/login.html'
-
 
 
 class SignUp(CreateView):
